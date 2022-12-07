@@ -5,20 +5,22 @@ def get_priority(value):
     return r
 
 
+def get_common_value(g1, g2, g3):
+    s = set(g1).intersection(g2).intersection(g3)
+    return ''.join(s)
+
+
 prio = []
+numeric_prio = []
+
 input_file = open('input3.txt')
 content_list = input_file.readlines()
 
-for line in input_file:
-    total_size = len(line.rstrip('\n'))
-    c1 = line[:int(total_size / 2)]
-    c2 = line.rstrip('\n')[int(total_size / 2):]
+for line in range(0, len(content_list), 3):
+    prio.append(get_common_value(content_list[line].rstrip('\n'), content_list[line + 1], content_list[line + 2]))
 
-    for char in c1:
-        if char in c2:
-            common = char
-            continue
+for element in prio:
+    numeric_prio.append(get_priority(element))
 
-    prio.append(get_priority(common))
 
-print(sum(prio))
+print(sum(numeric_prio))
